@@ -1,0 +1,128 @@
+
+@use "../../../scss/" as *;
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 600;
+
+    @include flex(center, unset);
+
+    img {
+        margin-right: 10px;
+        width: 50px;
+
+        @include mobile {
+            width: 30px;
+            margin-right: 0;
+        }
+    }
+}
+
+.header {
+    height: $header-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    transition: height 0.3s ease, background-color 0.3s ease;
+    color: white;
+
+ 
+    &.shrink {
+        height: $header-shrink-height;
+        background-color: $body-bg;
+    }
+
+    &__wrap {
+        @include flex(center, space-between);
+        height: 100%;
+        padding: 0 2rem;
+
+        @include mobile {
+            justify-content: center;
+        }
+    }
+
+    &__nav {
+        @include flex(center, unset);
+
+        & > * ~ * {
+            margin-left: 2rem;
+        }
+
+        li {
+            padding: 5px 0;
+            font-weight: 700;
+            position: relative;
+            font-size: 1.2rem;
+            &:hover{
+                color: red;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                transition: width 0.5s ease;
+                height: 2px;
+                background-color: $main-color;
+            }
+
+            &.active::after,
+            &:hover::after {
+                width: 100%;
+                
+            }
+        }
+
+        @include mobile {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 5rem;
+            width: 100%;
+            background-color: $body-bg;
+            padding: 0 2rem;
+            box-shadow: $box-shadow;
+
+            @include flex(center, space-between);
+
+            & > * ~ * {
+                margin-left: 0;
+            }
+        }
+    }
+}
+.menuSliderContainer {
+    width: 550 px;
+    background: "#511";
+    height: "50%"
+  }
+
+  .listItem{
+    color: red;
+  }
+  .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+    background-color: #1f1f1f !important;
+    color: rgb(255 255 255 / 87%) !important;
+    box-shadow: 0px 8px 10px -5px rgb(0 0 0 / 20%), 0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%);
+    overflow-y: auto;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+    -webkit-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    z-index: 1200;
+    -webkit-overflow-scrolling: touch;
+    position: fixed;
+    top: 0;
+    outline: 0;
+    right: 0;
+    border-radius: 10px 0 0 10px ;
+}
