@@ -65,7 +65,7 @@ export default function FormMovie() {
     const formData = new FormData();
 
     await AdminInstance
-      .post("/admin/movieinfo", data)
+      .post("/movieinfo", data)
       .then(async (response) => {
         let id = response.data._id;
         navigate("/admin/movies");

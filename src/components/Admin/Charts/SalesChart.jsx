@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactApexChart from 'react-apexcharts';
 
  export const ApexChart = ({xData,yData}) => {
-  console.log(xData)
-  console.log(yData)
+
   let data = [4, 30, 10, 90, 29, 19, 22, 90, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
   
   const [chartData, setChartData] = useState({

@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import { useForm } from "react-hook-form";
-import axios from "../../../../axios/axios";
+import axios, { AdminInstance } from "../../../../axios/axios";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import UploadWidget from './UploadWidget';
@@ -68,11 +68,11 @@ export default function FormMovie() {
     const formData = new FormData();
 
     // formData.append("image", data.file[0]);
-    await axios
-      .post("/admin/movieinfo", data)
+    await AdminInstance
+      .post("/movieinfo", data)
       .then(async (response) => {
    
-        navigate("/admin/movies");
+        navigate("/movies");
       })
       .catch((error) => {
         console.log(error);
