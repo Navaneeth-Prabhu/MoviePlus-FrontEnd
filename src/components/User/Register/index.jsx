@@ -76,7 +76,7 @@ function Modals() {
 
   const handleButtonClick = () => {
     // code for handling submit button click goes here
-    setCount(10);
+    setCount(60);
   };
 
   const handleResendClick = () => {
