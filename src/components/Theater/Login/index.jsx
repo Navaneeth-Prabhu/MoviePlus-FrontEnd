@@ -48,6 +48,7 @@ export default function SignIn() {
         { withCredentials: true }
       );
       if (data) {
+        console.log("res data",data)
         if (data.errors) {
           
           const { email, password } = data.errors;
@@ -62,6 +63,7 @@ export default function SignIn() {
         }
       }
     } catch (ex) {
+      console.log('ex');
       console.log(ex);
     }
   };
