@@ -78,7 +78,7 @@ export default function ReviewForm({ open, setOpen, movieId, setsubmit }) {
                 onClick={handleClose}
               />
             </div>
-            <hr />
+        
             <div>
               <Typography id="discrete-slider" gutterBottom>
                 How would you rate the movie?
@@ -116,11 +116,11 @@ export default function ReviewForm({ open, setOpen, movieId, setsubmit }) {
                 {rValue}%
               </h1>
             </div> */}
-              <hr />
+            
               <Typography id="discrete-slider" gutterBottom>
                 Write something about movie
               </Typography>
-              <hr />
+             
               <TextArea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
