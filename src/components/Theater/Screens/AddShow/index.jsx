@@ -12,7 +12,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import InputLabel from "@mui/material/InputLabel";
-import { useCookies } from "react-cookie";
 import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import MenuItem from "@mui/material/MenuItem";
@@ -63,6 +62,7 @@ function AddShows() {
     const token = localStorage.getItem('theater');
     const decoded = jwt_decode(token);
     const id = decoded.id;
+
   const handleChange = (event) => {
     setname(event.target.value);
   };
@@ -84,30 +84,37 @@ function AddShows() {
     formState: { errors },
   } = useForm();
 
+
+
+  const getScreen = async()=>{
+    TheaterInstance
+    .get(`/getScreen/${id}`)
+    .then(({ data }) => {
+      setscreen(data);
+    })
+    .catch((error) => {
+      console.log(error,".......................");    
+    });
+  }
+
+  const getMovies = ()=>{
+    TheaterInstance
+    .get("/getMovies")
+    .then(({ data }) => {
+      setData(data);
+    })
+    .catch((error) => {
+      console.log(error,"........asdfasdf..........")
+    });
+  }
+  
+
   useEffect(() => {
     async function getShowMovie() {
-      const token = localStorage.getItem('theater');
-      const decoded = jwt_decode(token);
-      const id = decoded.id;
-      TheaterInstance
-        .get("/getMovies")
-        .then(({ data }) => {
-          setData(data);
-        })
-        .catch((error) => {
-          console.log(error,"........asdfasdf..........")
-          // localStorage.removeItem('theater')
-        });
+      console.log("dddafffffffffffffffffffffff............",id)
+      getMovies()
+      getScreen()
 
-      TheaterInstance
-        .get(`/getScreen/${id}`)
-        .then(({ data }) => {
-          setscreen(data);
-        })
-        .catch((error) => {
-          console.log(error,".......................");
-          // localStorage.removeItem('theater')
-        });
       TheaterInstance
         .get(`/getShowMovie/${id}`)
         .then(({ data }) => {
@@ -120,6 +127,7 @@ function AddShows() {
     }
     getShowMovie();
   }, []);
+
 
 
   console.log("show", Show.reverse());

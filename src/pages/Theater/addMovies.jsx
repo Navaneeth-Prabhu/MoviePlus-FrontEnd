@@ -1,6 +1,4 @@
 import React from "react";
-// import AddScreen from '../../components/Theater/Screens/AddScreen'
-// import AddShow from "../../components/Theater/Screens/addMovieShows";
 import AddShow from "../../components/Theater/Screens/AddShow";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../../thems";
