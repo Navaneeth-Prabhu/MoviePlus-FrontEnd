@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
-import axios from "../../../../axios/axios";
+import { AdminInstance } from "../../../../axios/axios";
 import Autocomplete from "@mui/material/Autocomplete";
 import UploadWidget from "./UploadWidget";
 
@@ -64,7 +64,7 @@ export default function FormMovie() {
     data.PosterImg = url;
     const formData = new FormData();
 
-    await axios
+    await AdminInstance
       .post("/admin/movieinfo", data)
       .then(async (response) => {
         let id = response.data._id;

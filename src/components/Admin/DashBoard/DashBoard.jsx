@@ -1,4 +1,4 @@
-import axios from "../../../axios/axios";
+import axios, { AdminInstance } from "../../../axios/axios";
 import React, { useEffect, useState } from "react";
 import  { ApexChart } from '../Charts/SalesChart'
 
@@ -9,22 +9,22 @@ function DashBoard() {
   const [Theater, setTheater] = useState([])
   useEffect(() => {
     async function getReservation() {
-      await axios
-        .get("/admin/reservationDetails")
+      await AdminInstance
+        .get("/reservationDetails")
         .then(({ data }) => {
           setmovies(data);
         });
-      await axios
-        .get("/admin/topReserved")
+      await AdminInstance
+        .get("/topReserved")
         .then(({ data }) => {
           setTopBooked(data);
         });
-      await axios
-        .get("/admin/userList")
+      await AdminInstance
+        .get("/userList")
         .then(({ data }) => {
           setUsers(data);
         });
-        await axios.get("/admin/theaterList").then(({data}) => {
+        await AdminInstance.get("/theaterList").then(({data}) => {
         setTheater(data);
   });
     }

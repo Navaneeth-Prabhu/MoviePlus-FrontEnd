@@ -5,7 +5,7 @@ import { format } from "timeago.js";
 import { Pagination } from "swiper";
 import { style } from "@mui/system";
 import StarIcon from "@mui/icons-material/Star";
-import axios from "../../../axios/axios";
+import { UserInstance } from "../../../axios/axios";
 
 function ShowReview({movieInfo,submit}) {
   
@@ -15,7 +15,7 @@ function ShowReview({movieInfo,submit}) {
 
   useEffect(() => {
     async function getReview (){
-     const {data} = await axios.get(`/getAllReview/${movie._id}`)
+     const {data} = await UserInstance.get(`/getAllReview/${movie._id}`)
 
      setreview(data)
       

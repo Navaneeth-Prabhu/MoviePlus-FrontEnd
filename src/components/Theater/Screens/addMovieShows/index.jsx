@@ -59,7 +59,7 @@ export default function AddShow() {
     formState: { errors },
   } = useForm();
 
-  const token = cookies.theaterjwt;
+  const token = localStorage.getItem('theater');
   // console.log(token, "helloo,,,,,,,,,,,,,,,");
   useEffect(async () => {
     const decoded = jwt_decode(token);

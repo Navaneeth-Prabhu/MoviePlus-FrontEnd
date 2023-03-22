@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import {useCookies} from "react-cookie"
-import axios from '../../../axios/axios';
+import { TheaterInstance } from '../../../axios/axios';
 import { ToastContainer,toast } from 'react-toastify';
 import { useEffect } from 'react'
 
@@ -10,18 +10,18 @@ function Index() {
     const[cookies,setCookies,removeCookie]=useCookies([]);
     useEffect(() => {
       const verifyUser = async() =>{
-        if(!cookies.theaterjwt){
+        if(!localStorage.getItem('theater')){
             navigate("/theater/login")
         }else{
-            const { data } = await axios.post(
-                "/theater",
+            const { data } = await TheaterInstance.post(
+                "/",
                 {},
                 {
                   withCredentials: true,
                 }
               );
               if (!data.status) {
-                removeCookie("theaterjwt");
+                localStorage.removeItem('theater');
                 navigate("/theater/login");
               } else {
                 toast(`welcome.... ${data.user} `, {
@@ -31,11 +31,11 @@ function Index() {
         }
       }
       verifyUser();
-    }, [cookies,navigate,removeCookie])
+    }, [navigate])
     
 
     const logOut =()=>{
-        removeCookie("theaterjwt")
+        localStorage.removeItem('theater')
         navigate('/theater/login')
     }
   return (

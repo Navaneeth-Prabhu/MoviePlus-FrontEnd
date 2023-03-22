@@ -1,4 +1,4 @@
-import axios from "../../../../axios/axios";
+import { TheaterInstance } from "../../../../axios/axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from "jwt-decode";
@@ -11,7 +11,7 @@ function ReservationHistory() {
   const [MovieDet, setMovieDet] = useState("");
   const navigate = useNavigate();
   const [cookies] = useCookies([]);
-  const token = cookies.theaterjwt;
+  const token = localStorage.getItem('theater');
   const [Reservations, setReservations] = useState([]);
   const decoded = jwt_decode(token);
   const [Show, setShow] = useState([]);
@@ -22,8 +22,8 @@ function ReservationHistory() {
   console.log(".......................",token)
   useEffect(() => {
     // const id = decoded.id;
-    axios
-      .get(`/theater/getShowMovie/${id}`,{
+    TheaterInstance
+      .get(`/getShowMovie/${id}`,{
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${token}`,

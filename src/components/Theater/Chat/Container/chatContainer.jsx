@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "../ChatInput/chatInput";
 import { v4 as uuidv4 } from "uuid";
-import axios from "../../../../axios/axios";
+import { UserInstance } from "../../../../axios/axios";
 import jwt_decode from "jwt-decode";
 import { useCookies } from "react-cookie";
 import { format } from "timeago.js";
@@ -19,7 +19,7 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
   useEffect(() => {
     async function getmessage() {
       // console.log(currentUser);
-      const response = await axios.post(
+      const response = await UserInstance.post(
         "/message/getmsg",
         {
           from: currentUser,
@@ -34,7 +34,7 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
 
 
   const handleSendMsg = async (msg) => {
-    await axios.post("/message/addmsg", {
+    await UserInstance.post("/message/addmsg", {
       from: currentUser,
       to: currentChat._id,
       message: msg,

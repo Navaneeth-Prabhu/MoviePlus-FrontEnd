@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../axios/axios";
+import { UserInstance } from "../../../axios/axios";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -12,7 +12,7 @@ export default function Slider() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios
+    UserInstance
       .get("/GetTheaterMovies")
       .then(({ data }) => {
         setData(data);

@@ -21,7 +21,7 @@ import {
   GET_RESERVATIONLIST_SUCCESS,
   GET_RESERVATIONLIST_FAIL,
 } from "../Constants/bookingConstants";
-import axios from "../../axios/axios";
+import { TheaterInstance, UserInstance } from "../../axios/axios";
 
 export const handleSelectDate = (date, day, id) => async (dispatch) => {
   try {
@@ -29,8 +29,8 @@ export const handleSelectDate = (date, day, id) => async (dispatch) => {
  
     dispatch({ type: GET_DATE_DETAILS_REQUEST });
 
-    const {data} = await axios.get(
-      `/theater/getScreenInfo/${date}/${day}/${id}`
+    const {data} = await TheaterInstance.get(
+      `/getScreenInfo/${date}/${day}/${id}`
     );
 
     dispatch({ type: GET_DATE_DETAILS_SUCCESS, payload: data });
@@ -97,7 +97,7 @@ export const postBookingDetails = (datas) => async (dispatch) => {
   try {
     dispatch({ type: ADD_BOOKING_DETAILS });
 
-    const { data } = await axios.post("/reservation", datas);
+    const { data } = await UserInstance.post("/reservation", datas);
 
     dispatch({type:ADD_BOOKING_DETAILS_SUCCESS,payload:data})
   } catch (error) {
@@ -121,7 +121,7 @@ export const getSeatInformation =(date, movieId, theaterId, time) => async (disp
     };
     try {
       dispatch({ type: GET_SEATS_INFORMATION_REQUEST });
-      const { data } = await axios.post(
+      const { data } = await UserInstance.post(
         "/reservation/getSeatInfo",
         items
       );
@@ -161,8 +161,8 @@ export const getReservationHistory =(movieId, theaterId) => async (dispatch) => 
  
   try {
     dispatch({ type: GET_RESERVATIONLIST_REQUEST });
-    const { data } = await axios.get(
-      `/theater/${theaterId}/getAllReservations/${movieId}`
+    const { data } = await TheaterInstance.get(
+      `/${theaterId}/getAllReservations/${movieId}`
     );
     dispatch({ type: GET_RESERVATIONLIST_SUCCESS, payload: data });
   } catch (error) {

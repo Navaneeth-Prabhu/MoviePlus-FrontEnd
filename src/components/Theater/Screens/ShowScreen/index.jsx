@@ -10,19 +10,19 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import jwt_decode from "jwt-decode";
 import Movies from "../../../Admin/Movies/MovieList";
-import axios from "../../../../axios/axios";
+import  { UserInstance } from "../../../../axios/axios";
 
 export default function ImgMediaCard() {
   const [cookies] = useCookies([]);
   const [Screen, setScreen] = useState([]);
   const navigate = useNavigate();
-  const token = cookies.theaterjwt;
+  const token = localStorage.getItem('theater');
   const decoded = jwt_decode(token);
   const id = decoded.id;
   useEffect(() => {
     async function movieShow(){
-
-      await axios.get(`/getTheaterShow/${id}`)
+console.log("asdfasdfasdfsadfsadf",id)
+      await UserInstance.get(`/getTheaterShow/${id}`)
         .then(({ data }) => {
           console.log(data)
           setScreen(data);

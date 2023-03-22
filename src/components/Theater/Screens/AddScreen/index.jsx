@@ -16,7 +16,7 @@ import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
 
 import { useForm } from "react-hook-form";
-import axios from "../../../../axios/axios";
+import { TheaterInstance } from "../../../../axios/axios";
 
 const ErrorText = ({ children, ...props }) => (
   <Typography sx={{ color: "error.main" }} {...props}>
@@ -55,8 +55,8 @@ export default function FormMovie() {
 
 
   const onSubmit = async (data) => {
-
-    await axios.post("/theater/addScreen",data)
+console.log(data,"......")
+    await TheaterInstance.post("/addScreen",data)
   navigate("/theater/")
   };
   return (

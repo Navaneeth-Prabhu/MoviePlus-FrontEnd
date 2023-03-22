@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import Cookies from "js-cookie";
-import axios from "../../../axios/axios";
+import  { UserInstance } from "../../../axios/axios";
 import { Input, Modal } from "antd";
 import { Backdrop, Fade, Slider, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -30,7 +30,7 @@ export default function ReviewForm({ open, setOpen, movieId, setsubmit }) {
 
     event.preventDefault();
 
-    axios.post("/reviews", {
+    UserInstance.post("/reviews", {
       message,
       rating,
       movieId,

@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from '../../../axios/axios';
+import { TheaterInstance } from '../../../axios/axios';
 import {useNavigate} from 'react-router-dom'
 import {ToastContainer , toast} from 'react-toastify'
 
@@ -40,7 +40,7 @@ export default function () {
     const handleSubmit = async(e) =>{
         e.preventDefault()
         try{
-            const {data}= await axios.post("/theater/reg",{
+            const {data}= await TheaterInstance.post("/reg",{
                 ...values,
             },{
                 withCredentials:true,

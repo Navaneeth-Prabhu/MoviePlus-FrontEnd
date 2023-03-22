@@ -20,7 +20,7 @@ function Topbar() {
   const[cookies,setCookies,removeCookie]=useCookies([]);
   useEffect(() => {
     const verifyUser = async() =>{
-      if(!cookies.adminjwt){
+      if(!localStorage.getItem('admin')){
           navigate("/admin/login")
       }else{
   
@@ -31,7 +31,7 @@ function Topbar() {
   
 
   const logOut =()=>{
-      removeCookie("adminjwt")
+      localStorage.removeItem('admin')
       navigate('/admin/login')
   }
 

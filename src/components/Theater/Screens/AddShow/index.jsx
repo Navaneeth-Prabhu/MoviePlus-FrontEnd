@@ -27,7 +27,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import axios from "../../../../axios/axios";
+import { TheaterInstance } from "../../../../axios/axios";
 
 function AddShows() {
  
@@ -53,7 +53,6 @@ function AddShows() {
 
   const [startDate, setStartDate] = React.useState(dayjs(new Date()));
   const [endDate, setEndDate] = React.useState(dayjs(new Date()));
-  const[cookies,setCookies,removeCookie]=useCookies([]);
 
   const handleStrateDate = (newValue) => {
     setStartDate(newValue);
@@ -61,7 +60,7 @@ function AddShows() {
   const handleEndDate = (newValue) => {
     setEndDate(newValue);
   };
-    const token = cookies.theaterjwt;
+    const token = localStorage.getItem('theater');
     const decoded = jwt_decode(token);
     const id = decoded.id;
   const handleChange = (event) => {
@@ -87,30 +86,30 @@ function AddShows() {
 
   useEffect(() => {
     async function getShowMovie() {
-      const token = cookies.theaterjwt;
+      const token = localStorage.getItem('theater');
       const decoded = jwt_decode(token);
       const id = decoded.id;
-      axios
-        .get("/theater/getMovies")
+      TheaterInstance
+        .get("/getMovies")
         .then(({ data }) => {
           setData(data);
         })
         .catch((error) => {
           console.log(error,"........asdfasdf..........")
-          removeCookie("theaterjwt")
+          // localStorage.removeItem('theater')
         });
 
-      axios
-        .get(`/theater/getScreen/${id}`)
+      TheaterInstance
+        .get(`/getScreen/${id}`)
         .then(({ data }) => {
           setscreen(data);
         })
         .catch((error) => {
           console.log(error,".......................");
-          removeCookie("theaterjwt")
+          // localStorage.removeItem('theater')
         });
-      axios
-        .get(`/theater/getShowMovie/${id}`)
+      TheaterInstance
+        .get(`/getShowMovie/${id}`)
         .then(({ data }) => {
           setShow(data);
           // console.log(data)
@@ -136,7 +135,7 @@ function AddShows() {
     data.id = id;
     data.startDate = startDate;
     data.endDate = endDate;
-    await axios.post("/theater/addShow", data);
+    await TheaterInstance.post("/addShow", data);
     navigate("/theater/");
   };
 

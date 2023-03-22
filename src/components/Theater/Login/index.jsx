@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState, useEffect } from "react";
-import axios from "../../../axios/axios";
+import { TheaterInstance } from "../../../axios/axios";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,13 +24,14 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-  const [cookies] = useCookies([]);
+  // const [cookies] = useCookies([]);
+  const token = localStorage.getItem('theater')
   const navigate = useNavigate();
   useEffect(() => {
-    if (cookies.theaterjwt) {
+    if (token) {
       navigate("/theater");
     }
-  },[cookies,navigate] );
+  },[token,navigate] );
 
   const [values, setValues] = useState({ email: "", password: "" });
   const generateError = (error) =>
@@ -40,15 +41,16 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post(
-        "/theater/login",
+      const { data } = await TheaterInstance.post(
+        "/login",
         {
           ...values,
         },
         { withCredentials: true }
       );
       if (data) {
-        console.log("res data",data)
+        localStorage.setItem("theater",data.token)
+        // console.log("res data",data)
         if (data.errors) {
           
           const { email, password } = data.errors;

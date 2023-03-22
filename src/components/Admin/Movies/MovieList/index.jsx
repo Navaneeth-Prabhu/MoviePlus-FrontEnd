@@ -26,7 +26,7 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import Header from "../../Components/Header";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
-import axios from "../../../../axios/axios";
+import { AdminInstance, UserInstance } from "../../../../axios/axios";
 import { useState } from "react";
 import EditMovieModel from "../AddMovies/EditMovieModel";
 import { useDispatch } from "react-redux";
@@ -158,7 +158,7 @@ function Movies() {
 
 
   useEffect(() => {
-    axios
+    UserInstance
       .get("/movieInfo")
       .then(({ data }) => {
         setData(data.reverse());
@@ -172,7 +172,7 @@ function Movies() {
   const handleSave = async(updatedData) => {
     try {
       
-      const {data} = await axios.post(`/admin/editMovie/${movie._id}`, updatedData);
+      const {data} = await AdminInstance.post(`/editMovie/${movie._id}`, updatedData);
       setData((prevData) => {
         const newData = prevData.map((movie) => {
           if (movie._id === data._id) {

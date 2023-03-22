@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import axios from "../../../axios/axios";
+import { AdminInstance } from "../../../axios/axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -27,8 +27,8 @@ export default function AddStaff() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "/admin/addstaff",
+      const { data } = await AdminInstance.post(
+        "/addstaff",
         {
           ...values,
         },

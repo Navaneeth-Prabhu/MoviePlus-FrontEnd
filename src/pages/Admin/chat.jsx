@@ -6,7 +6,7 @@ import "./dashboard.css";
 import SideBar from "../../components/Admin/Global/Sidebar";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import styled from "styled-components";
-import axios from "../../axios/axios";
+import { AdminInstance, UserInstance } from "../../axios/axios";
 import { useNavigate } from "react-router-dom";
 import Contacts from "../../components/Admin/Chat/Contacts/contacts";
 import Welcome from "../../components/Admin/Chat/welcome";
@@ -27,7 +27,7 @@ function Chat() {
 
   useEffect(() => {
     async function setUser() {
-      const token = cookies.adminjwt;
+      const token = localStorage.getItem('admin');
       const decoded = await jwt_decode(token);
       setCurrentUser(decoded.id);
     }
@@ -46,16 +46,16 @@ function Chat() {
   }, []);
 
   async function fetchData() {
-    const token = cookies.adminjwt;
+    const token = localStorage.getItem('admin');
     const decoded = await jwt_decode(token);
     const id = decoded.id;
     // Fetch all the users from the theater collection
-    const users = await axios.get(`/admin/allTheater`);
+    const users = await AdminInstance.get(`/allTheater`);
 
     // Fetch the latest message for each user from the message collection
     const messagePromises = users.data.map(async (user) => {
-      const message = await axios.get(
-        `/admin/latestMessage/${user._id}`
+      const message = await AdminInstance.get(
+        `/latestMessage/${user._id}`
       );
       return {
         ...user,
@@ -105,7 +105,7 @@ function Chat() {
 
   async function fetchMessages() {
     if (currentChat) {
-      const response = await axios.post(
+      const response = await UserInstance.post(
         "/message/getmsg",
         {
           from: currentUser,

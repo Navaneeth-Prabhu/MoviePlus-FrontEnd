@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState, useEffect } from "react";
-import axios from "../../../axios/axios";
+import { AdminInstance } from "../../../axios/axios";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
@@ -23,13 +23,13 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-  const [cookies] = useCookies([]);
+  // const [cookies] = useCookies([]);
   const navigate = useNavigate();
   useEffect(() => {
-    if (cookies.adminjwt) {
+    if (localStorage.getItem('admin')) {
       navigate("/admin");
     }
-  },[cookies,navigate] );
+  },[navigate] );
 
   const [values, setValues] = useState({ email: "", password: "" });
   const generateError = (error) =>
@@ -39,12 +39,15 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post(
-        "/admin/login",values
+      const { data } = await AdminInstance.post(
+        "/login",values
         ,
         { withCredentials: true }
       );
       if (data) {
+        if(data.token){
+          localStorage.setItem("admin",data.token)
+        }
         if (data.errors) {
           const { email, password } = data.errors;
           if (email) generateError(email);

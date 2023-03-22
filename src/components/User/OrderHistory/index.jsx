@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./order.scss";
-import axios from "../../../axios/axios";
+import { UserInstance } from "../../../axios/axios";
 
 function Order() {
   const [history, sethistory] = useState([]);
@@ -8,7 +8,7 @@ function Order() {
     async function getHistroy() {
       const user = localStorage.getItem("userInfo");
       let userEmail = JSON.parse(user);
-      const { data } = await axios.get(
+      const { data } = await UserInstance.get(
         `/history/${userEmail}`
       );
 

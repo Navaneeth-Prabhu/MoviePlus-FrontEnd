@@ -8,7 +8,6 @@ import 'antd/dist/reset.css';
 import Movie from "./context/movieContext";
 
 function App() {
-
   return (
     <Movie>
 

@@ -1,4 +1,4 @@
-import axios from "../../../axios/axios";
+import { TheaterInstance } from "../../../axios/axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from "jwt-decode";
@@ -8,12 +8,12 @@ function DashBoard() {
   const [cookies] = useCookies([]);
   const [movies, setmovies] = useState([]);
   useEffect(() => {
-    const token = cookies.theaterjwt;
+    const token = localStorage.getItem('theater')
     const decoded = jwt_decode(token);
     const id = decoded.id;
 
     async function getReservation() {
-      await axios.get(`/theater/reservationDetails/${id}`).then(({ data }) => {
+      await TheaterInstance.get(`/reservationDetails/${id}`).then(({ data }) => {
         setmovies(data);
       });
     }

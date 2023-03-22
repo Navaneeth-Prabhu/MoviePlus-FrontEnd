@@ -1,7 +1,5 @@
 import React,{useEffect,useState} from "react"
-import axios from "../../../axios/axios";
-// import axios from "axios";
-// import * as React from "react";
+import  { AdminInstance } from "../../../axios/axios";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -100,19 +98,19 @@ export default function CustomPaginationActionsTable() {
     const [state, setState] = useState([]);
 const [block, setBlock] = useState(false);
 useEffect(() => {
-  axios.get("/admin/staff").then((response) => {
+  AdminInstance.get("/staff").then((response) => {
     setState(response.data);
   });
 }, [block]);
 
 const blockStaff = (id) => {
-    axios.get(`/admin/block/${id}`).then(({ data }) => {
+    AdminInstance.get(`/block/${id}`).then(({ data }) => {
        setBlock(!block);
     });
   };
 
   const unblockStaff = (id) => {
-    axios.get(`/admin/unblock/${id}`).then(({ data }) => {
+    AdminInstance.get(`/unblock/${id}`).then(({ data }) => {
       setBlock(!block);
     });
   };

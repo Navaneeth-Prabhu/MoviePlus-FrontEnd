@@ -47,10 +47,8 @@ const Counter = () => (
 function PaymentsPage({ proceed }) {
   const cookies = useCookies([])
 
-  const token = cookies.theaterjwt;
-  // const decoded =  jwt_decode(token);
-  // const id =(decoded.id)
-  // console.log(id,"helloo")
+  const token = localStorage.getItem('theater');
+
 
   const [state, setState] = React.useState(false);
 

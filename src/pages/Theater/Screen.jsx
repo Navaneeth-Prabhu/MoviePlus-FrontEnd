@@ -20,7 +20,7 @@ function Screen() {
               <SideBar />
               <main className="content">
                 <Topbar></Topbar>
-                <ShowScreen />
+                {/* <ShowScreen /> */}
                 <AddScreen />
               </main>
             </div>

@@ -10,12 +10,12 @@ import {
     DELETE_MOVIE_SUCCESS,
     DELETE_MOVIE_FAIL,
   } from "../Constants/movieConstants";
-  import axios from "../../axios/axios";
+  import { AdminInstance, UserInstance } from "../../axios/axios";
   
   export const getMovies = () => async (dispatch) => {
     try {
       dispatch({ type: GET_MOVIE_REQUEST });
-      let { data } = await axios.get("/movieInfo");
+      let { data } = await UserInstance.get("/movieInfo");
     
       dispatch({ type: GET_MOVIE_SUCCESS, payload: data });
     } catch (error) {
@@ -32,7 +32,7 @@ import {
 
  export const moviedetails = (id) => async (dispatch) => {
     try {
-      let { data } = await axios.get(`/moviedetails/${id}`);  
+      let { data } = await UserInstance.get(`/moviedetails/${id}`);  
       dispatch({type: GET_MOVIE_INFO_MOVIEPAGE_SUCCESS, payload: data});   
     } catch (error) {
        dispatch({
@@ -48,7 +48,7 @@ import {
     try {
    
    
-      let { data } = await axios.post(`/admin/deleteMovie/${id}`);
+      let { data } = await AdminInstance.post(`/deleteMovie/${id}`);
    
       dispatch({type: DELETE_MOVIE_SUCCESS, payload: data});
  
@@ -67,7 +67,7 @@ import {
   export const getTheaterMovies =() =>async(dispatch)=>{
     try {
       // dispatch({type:GET_THEATER_MOVIE_REQUEST})
-      let { data } = await axios.get('/GetTheaterMovies');
+      let { data } = await UserInstance.get('/GetTheaterMovies');
   
       dispatch({type:GET_THEATER_MOVIE_SUCCESS,payload:data})
     } catch (error) {

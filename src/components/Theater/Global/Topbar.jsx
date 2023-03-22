@@ -11,7 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer,toast } from 'react-toastify';
-import axios from "../../../axios/axios";
+import { TheaterInstance } from "../../../axios/axios";
 
 function Topbar() {
   const theme = useTheme();
@@ -20,21 +20,21 @@ function Topbar() {
 
 
   const navigate = useNavigate();
-  const[cookies,setCookies,removeCookie]=useCookies([]);
+  // const[cookies,setCookies,removeCookie]=useCookies([]);
   useEffect(() => {
     const verifyUser = async() =>{
-      if(!cookies.theaterjwt){
+      if(!localStorage.getItem('theater')){
           navigate("/theater/login")
       }else{
-          const { data } = await axios.post(
-              "/theater",
+          const { data } = await TheaterInstance.post(
+              "/",
               {},
               {
                 withCredentials: true,
               }
             );
             if (!data.status) {
-              removeCookie("theaterjwt");
+              localStorage.removeItem("theater");
               navigate("/theater/login");
             } else {
               toast(`welcome.... ${data.user} `, {
@@ -44,11 +44,12 @@ function Topbar() {
       }
     }
    
-  }, [cookies,navigate,removeCookie])
+  }, [navigate])
   
 
   const logOut =()=>{
-      removeCookie("theaterjwt")
+      // removeCookie("theaterjwt")
+      localStorage.removeItem("theater")
       navigate('/theater/login')
   }
 

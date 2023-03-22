@@ -6,7 +6,7 @@ import "./dashboard.css";
 import SideBar from "../../components/Theater/Global/Sidebar";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import styled from "styled-components";
-import axios from "../../axios/axios";
+import { TheaterInstance } from "../../axios/axios";
 import { useNavigate } from "react-router-dom";
 import Contacts from "../../components/Theater/Chat/Contacts/contacts";
 import Welcome from "../../components/Theater/Chat/welcome";
@@ -26,7 +26,7 @@ function Chat() {
 
   useEffect( () => {
     async function setUser(){
-        const token = cookies.theaterjwt;
+        const token = localStorage.getItem('theater');
         const decoded = await jwt_decode(token);
         setCurrentUser(decoded.id);
        
@@ -45,10 +45,10 @@ function Chat() {
 
   useEffect(() => {
     async function fetchData(){
-      const token = cookies.theaterjwt;
+      const token = localStorage.getItem('theater');
       const decoded = await jwt_decode(token);
       const id =(decoded.id)
-      const data = await axios.get(`/theater/allAdminStaff`);
+      const data = await TheaterInstance.get(`/allAdminStaff`);
    
       setContacts(data.data)
     }

@@ -6,13 +6,13 @@ import {
   USER_OTP_SUCCESS,
   USER_OTP_FAIL,
 } from "../Constants/userConstants";
-  import axios from "../../axios/axios";
+  import { UserInstance } from "../../axios/axios";
   
   export const registration = (datas) => async (dispatch) => {
       // console.log(datas)
     try {
       dispatch({ type: USER_LOGIN_REQUEST });
-      let { data } = await axios.post("/signup", datas);
+      let { data } = await UserInstance.post("/signup", datas);
       console.log(data);
       
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
@@ -32,7 +32,7 @@ import {
 
     try {
       dispatch({ type: USER_OTP_REQUEST });
-      let { data } = await axios.post("/otp/", datas);
+      let { data } = await UserInstance.post("/otp/", datas);
       console.log(data);
       dispatch({ type: USER_OTP_SUCCESS, payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));

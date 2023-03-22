@@ -43,12 +43,7 @@ function Routess() {
 
   return (
     // <BrowserRouter>
-   
-
-  
       <Routes>
-
-
         <Route exact path ="/" element = {<Userhome/>} />
         <Route exact path ="/moviedetails/:id" element = {<Details/>} />
         <Route exact path ="/movie/trailler" element = {<Trailler/>} />

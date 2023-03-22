@@ -12,7 +12,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import styles from "../styles/summery.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../../axios/axios";
+import { TheaterInstance, UserInstance } from "../../../../axios/axios";
 // import Food from '../Components/SummeryPage/Food';
 
 function SummaryPage({ foodModalOpen, handleCloseFoodModal }) {
@@ -52,7 +52,7 @@ const [state, setState] = React.useState(false);
       paymentId: "theater",
     };
 
-    await axios.post("/theater/reservation", data).then((res) => {
+    await TheaterInstance.post("/reservation", data).then((res) => {
         if (res) {
           console.log("POSTED");
           navigate("/theater/Reservation")

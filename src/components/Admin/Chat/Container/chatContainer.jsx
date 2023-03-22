@@ -4,7 +4,7 @@ import ChatInput from "../ChatInput/chatInput";
 // import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 // import axios from "axios";
-import axios from '../../../../axios/axios'
+import axios, { AdminInstance } from '../../../../axios/axios'
 import jwt_decode from "jwt-decode";
 import { useCookies } from "react-cookie";
 // import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
@@ -19,7 +19,7 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
 
   useEffect(() => {
     async function getmessage() {
-      const response = await axios.post(
+      const response = await AdminInstance.post(
         "/message/getmsg",
         {
           from: currentUser,
@@ -33,7 +33,7 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
 
 
   const handleSendMsg = async (msg) => {
-    await axios.post("/message/addmsg", {
+    await AdminInstance.post("/message/addmsg", {
       from: currentUser,
       to: currentChat._id,
       message: msg,
