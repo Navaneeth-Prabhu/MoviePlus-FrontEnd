@@ -45,7 +45,7 @@ const Detail = () => {
       <Navbar />
 
       <div
-        className="flex flex-col  md:flex-row md:mt-32 container md:m-auto" 
+        className="flex flex-col  md:flex-row md:mt-32 md:w-[88%] md:m-auto" 
         style={{
           backgroundImage: `linear-gradient(90deg, rgb(29, 30, 34) 24.97%, rgb(29, 30, 34) 38.3%, rgba(29, 30, 34, 0.04) 97.47%, rgb(18, 18, 18) 100%),url(${`../../../../../server/public/movies/${movieInformation?.movie._id}.jpg`})`,
           backgroundPosition: "center",
@@ -53,7 +53,7 @@ const Detail = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="bg-blue-500 w-screen md:max-w-[240px] md:h-[350px] overflow-hidden relative">
+        <div className=" w-screen md:max-w-[240px] md:h-[350px] overflow-hidden relative">
           <div className=" w-full md:w-full md:h-full   bg-yellow-300" onClick={() => navigate("/movie/trailler")}>
             <img className="h-full w-full"
               src={movieInformation?.movie.PosterImg}

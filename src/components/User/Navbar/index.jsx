@@ -15,14 +15,9 @@ import LocalActivitySharpIcon from "@mui/icons-material/LocalActivitySharp";
 import ContactSupportSharpIcon from "@mui/icons-material/ContactSupportSharp";
 import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
 import { Box } from "@mui/system";
-
 import Modal from "../Register/index";
-// import { makeStyles } from '@material-ui/styles';
-
 import "./nav.scss";
 import { useSelector } from "react-redux";
-
-// import logo from '../../assets/tmovie.png';
 
 const headerNav = [
   {
@@ -42,7 +37,7 @@ const listItems = [
   {
     listIcon: <AccountCircleRoundedIcon />,
     listText: "Profile",
-    path: "/profile",
+    // path: "/profile",
   },
   {
     listIcon: <LocalActivitySharpIcon />,
@@ -53,13 +48,13 @@ const listItems = [
     listIcon: <ContactSupportSharpIcon />,
     listText: "Help & Support",
   },
+  // {
+  //   listIcon: <SettingsSharpIcon />,
+  //   listText: "Account & Settings",
+  // },
   {
     listIcon: <SettingsSharpIcon />,
-    listText: "Account & Settings",
-  },
-  {
-    listIcon: <SettingsSharpIcon />,
-    listText: "Account & Settings",
+    listText: "Become a TheaterOwner",
     path:"/theater/reg"
   },
 ];
@@ -67,7 +62,6 @@ const listItems = [
 function Navbar() {
   const user = useSelector((state) => state.userLogin);
 
-  const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
@@ -77,7 +71,7 @@ function Navbar() {
 
   const logout = () => {
     // window.open("http://localhost:3008/auth/logout", "_self");
-    localStorage.clear();
+    localStorage.removeItem('userInfo');
   };
 
   const toggleDrawer = () => (event) => {
@@ -98,6 +92,7 @@ function Navbar() {
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        backgroundColor:"#121212"
       }}
     >
       <List>{}</List>

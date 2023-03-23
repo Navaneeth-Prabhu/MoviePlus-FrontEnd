@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import ReactApexChart from 'react-apexcharts';
 
  export const ApexChart = ({xData,yData}) => {
-  console.log(xData)
-  console.log(yData)
-
   
   const [chartData, setChartData] = useState({
     series: [{

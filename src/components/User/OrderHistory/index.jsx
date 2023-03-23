@@ -28,7 +28,7 @@ function Order() {
             <div className="posters p-4 w-56">
               <img
                 className="h-full rounded-xl"
-                src={item?.movieId.PosterImg}
+                src={item?.movieId?.PosterImg}
                 alt=""
               />
             </div>

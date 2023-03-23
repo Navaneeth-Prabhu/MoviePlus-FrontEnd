@@ -1,6 +1,4 @@
-import React,{useEffect,useState} from "react"
-import axios from "axios";
-// import * as React from "react";
+import React,{useState} from "react"
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -11,8 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { TableHead } from "@mui/material";
-
+import { CssBaseline, TableHead } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
@@ -20,9 +17,6 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Button from '@mui/material/Button';
-
-import CssBaseline from "@mui/material/CssBaseline";
-// import Box from '@mui/material/Box';
 import Container from "@mui/material/Container";
 import { useSelector } from "react-redux";
 
@@ -129,13 +123,14 @@ export default function TheaterList() {
           <TableHead>
           <TableRow>
             <TableCell>index</TableCell>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Theater</TableCell>
-            <TableCell align="left">Address</TableCell>
-            <TableCell align="left">City</TableCell>
-            <TableCell align="left">State</TableCell>
+            <TableCell align="left">UserId</TableCell>
+            <TableCell align="left">BookedOn</TableCell>
+            <TableCell align="left">Reserve-Date</TableCell>
+            <TableCell align="left">Show Time</TableCell>
+            <TableCell align="left">No:Seats</TableCell>
+            <TableCell align="left">Total</TableCell>
             <TableCell align="left">Email</TableCell>
-            <TableCell align="left">Status</TableCell>
+            {/* <TableCell align="left">Status</TableCell> */}
             
            
           </TableRow>
@@ -149,11 +144,15 @@ export default function TheaterList() {
                 : reserveList
               ).map((data,i) => (
                 <TableRow key={i+1}>
+                
                   <TableCell component="th" scope="row">
                     {i+1}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {data.userId}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                  {data.bookedDate.slice(0,10)}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {data.showDate}
@@ -167,28 +166,16 @@ export default function TheaterList() {
                   <TableCell component="th" scope="row">
                     {data.total}
                   </TableCell>
-                  <TableCell  align="left">
-                    {data.email}
-                  </TableCell>
-                  <TableCell  align="left">
-                  {/* {data.isApproved == false ? (
-                      <Button
-                
-                        onClick={() => approve(data._id)}
-                        variant="contained"
-                        color="success"
-                      >
-                        Approve
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => reject(data._id)}
-                        variant="outlined"
-                        color="error"
-                      >
-                        Reject
-                      </Button>
-                    )} */}
+                  <TableCell  component="th" scope="row">
+                    <div className="flex flex-row">
+                    {
+                      data?.seats?.map((item,i)=>(
+                        <div key={i} >
+                          <p>/{item.seat}</p>
+                        </div>
+                      ))
+                    }
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

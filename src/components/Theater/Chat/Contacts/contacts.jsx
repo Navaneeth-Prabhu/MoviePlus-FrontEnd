@@ -28,7 +28,7 @@ function Contacts({contacts,currentUser,changeChat}) {
     <Container>
           <div className="brand">
             {/* <img src={Logo} alt="logo" /> */}
-            <h3>snappy</h3>
+            <h3>Chat</h3>
           </div>
           <div className="contacts">
             {sortedContacts.map((contact, index) => {
@@ -41,10 +41,10 @@ function Contacts({contacts,currentUser,changeChat}) {
                   onClick={() => changeCurrentChat(index, contact)}
                 >
                   <div className="avatar">
-                    <img
+                    {/* <img
                       src={`data:image/svg+xml;base64,${contact.avatarImage}`}
                       alt=""
-                    />
+                    /> */}
                   </div>
                   <div className="username">
                     <h3>{contact.name}</h3>

@@ -14,9 +14,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
-
+import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { TheaterInstance } from "../../../../axios/axios";
+import { Navigation } from "swiper";
 
 const ErrorText = ({ children, ...props }) => (
   <Typography sx={{ color: "error.main" }} {...props}>
@@ -40,32 +41,58 @@ const style = {
 
 export default function FormMovie() {
   const navigate = useNavigate()
-  const [open, setOpen] = React.useState(false);
-  const [name, setname] = React.useState("");
+  const [screen, setscreen] = React.useState([]);
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  const token = localStorage.getItem('theater');
+  const decoded = jwt_decode(token);
+  const id = decoded.id;
 
-  const handleChange = (event) => {
-    setname(event.target.value);
-  };
+  const getScreen = async()=>{
+    try {
+      const { data } = await TheaterInstance.get(`/getScreen/${id}`);
+      const screenNames = data?.map((name) => name.screenName);
+      setscreen(screenNames)
+      // do something with the screenNames array
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (name === '') {
+      setError('Please enter a name.');
+    } else if (screen.includes(name)) {
+      setError(`${name} already exists.`);
+    } else {
+      // do something with the name, like add it to an array
+      setError('');
+      setName('');
+      navigate('/theater')
+    }
+  }
+  
 
+  useEffect(() => {
+    getScreen()
+  }, [screen])
+  
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
 
-  const onSubmit = async (data) => {
-console.log(data,"......")
-    await TheaterInstance.post("/addScreen",data)
-  navigate("/theater/")
-  };
   return (
     <ThemeProvider>
       <Container component="main" maxWidth="xm" color="secondary">
         <Typography component="h1" variant="h5">
-          addScreen
+         Add new Screen
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+    </div>
+        <form onSubmit={handleSubmit}>
           
           <Box noValidate >
             <Grid
@@ -73,8 +100,6 @@ console.log(data,"......")
               rowSpacing={1}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-
-
               <Grid item lg={4} xs={4}>
                 <div>
                   <TextField
@@ -83,17 +108,18 @@ console.log(data,"......")
                     label="Name"
                     color="secondary"
                     type="text"
-                   
+                    onChange={(event) => setName(event.target.value)}
                     fullWidth
+                    value={name}
                     margin="1"
-                    {...register("name", {
-                      required: true,
-                      minLength: 4,
-                      maxLength: 20,
-                      pattern: /^[^\s]+(?:$|.*[^\s]+$)/,
-                    })}
+                    // {...register("name", {
+                    //   required: true,
+                    //   minLength: 4,
+                    //   maxLength: 20,
+                    //   pattern: /^[^\s]+(?:$|.*[^\s]+$)/,
+                    // })}
                   />
-                  <span className="text-danger">
+                  {/* <span className="text-danger">
                     {errors.name?.type === "required" && (
                       <span>name is required</span>
                     )}
@@ -106,7 +132,8 @@ console.log(data,"......")
                     {errors.name?.type === "pattern" && (
                       <span>Should not have spaces</span>
                     )}
-                  </span>
+                  </span> */}
+                   {error && <p>{error}</p>}
                 </div>
               </Grid>
             </Grid>
@@ -130,6 +157,7 @@ console.log(data,"......")
             </Grid>
           </Box>
         </form>
+       
         <ToastContainer />
       </Container>
     </ThemeProvider>

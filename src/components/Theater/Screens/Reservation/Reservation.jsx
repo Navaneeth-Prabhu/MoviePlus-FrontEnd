@@ -53,8 +53,8 @@ console.log("movieDet",Show)
           <div key={index} className="flex">
             {shows?.showInfo?.map((item, index) => (
               <div key={index} className="flex flex-col items-center w-[11rem] h-80">
-                <p className="text-white">{item?.screen}</p>
-                <p className="text-white">{item?.movieName?.title}</p>
+                 <p className="text-white underline decoration-1 underline-offset-4">{item?.screen}</p>
+                  <p className="text-white text-center truncate w-full text-md p-5">{item?.movieName?.title}</p>
                 <div className="flex space-x-2">
                   {item?.time?.map((time,index) => (
                     <p key={index} className="text-white">{time}</p>
@@ -67,7 +67,7 @@ console.log("movieDet",Show)
                     alt=""
                   />
                 </div>
-                <button onClick={() => selectedMovieToState(item)}>
+                <button className="my-3 px-2 py-1 bg-red-600 rounded-md" onClick={() => selectedMovieToState(item)}>
                   Book Now
                 </button>
               </div>

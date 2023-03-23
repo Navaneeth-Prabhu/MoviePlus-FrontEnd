@@ -6,7 +6,7 @@ import "./dashboard.css";
 import SideBar from "../../components/Admin/Global/Sidebar";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import styled from "styled-components";
-import { AdminInstance, UserInstance } from "../../axios/axios";
+import { AdminInstance } from "../../axios/axios";
 import { useNavigate } from "react-router-dom";
 import Contacts from "../../components/Admin/Chat/Contacts/contacts";
 import Welcome from "../../components/Admin/Chat/welcome";
@@ -17,13 +17,11 @@ import { io } from "socket.io-client";
 
 function Chat() {
   const host = "http://localhost:3001";
-  const navigate = useNavigate();
-  const [cookies] = useCookies([]);
+  // const host = "www.movieplus.online";
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [messages, setMessages] = useState([]); 
 
   useEffect(() => {
     async function setUser() {
@@ -41,110 +39,122 @@ function Chat() {
     }
   }, [currentUser]);
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // async function fetchData() {
+  //   const token = localStorage.getItem('admin');
+  //   const decoded = await jwt_decode(token);
+  //   const id = decoded.id;
+  //   // Fetch all the users from the theater collection
+  //   const users = await AdminInstance.get(`/allTheater`);
+
+  //   // Fetch the latest message for each user from the message collection
+  //   const messagePromises = users.data.map(async (user) => {
+  //     const message = await AdminInstance.get(
+  //       `/latestMessage/${user._id}`
+  //     );
+  //     return {
+  //       ...user,
+  //       latestMessageCreatedAt: message.data ? message.data.createdAt : null,
+  //     };
+  //   });
+
+
+
+  //   // Wait for all the latest message promises to resolve
+  //   const usersWithLatestMessages = await Promise.all(messagePromises);
+
+  //   // Sort the users based on the latest message's createdAt time in descending order
+  //   const sortedUsers = usersWithLatestMessages.sort((a, b) => {
+  //     return (
+  //       new Date(b.latestMessageCreatedAt) - new Date(a.latestMessageCreatedAt)
+  //     );
+  //   });
+
+  //   setContacts(sortedUsers);
+  // }
+
   useEffect(() => {
+    async function fetchData(){
+      const token = localStorage.getItem('admin');
+      const decoded = await jwt_decode(token);
+      const id =(decoded.id)
+      const data = await AdminInstance.get(`/allTheater`);
+   
+      setContacts(data.data)
+    }
     fetchData();
-  }, []);
+  }, [])
 
-  async function fetchData() {
-    const token = localStorage.getItem('admin');
-    const decoded = await jwt_decode(token);
-    const id = decoded.id;
-    // Fetch all the users from the theater collection
-    const users = await AdminInstance.get(`/allTheater`);
+  // const updateContacts = (newContact) => {
+  //   // Find the index of the contact in the contacts array
+  //   const index = contacts.findIndex(
+  //     (contact) => contact._id === newContact._id
+  //   );
 
-    // Fetch the latest message for each user from the message collection
-    const messagePromises = users.data.map(async (user) => {
-      const message = await AdminInstance.get(
-        `/latestMessage/${user._id}`
-      );
-      return {
-        ...user,
-        latestMessageCreatedAt: message.data ? message.data.createdAt : null,
-      };
-    });
+  //   if (index !== -1) {
+  //     // If the contact already exists in the contacts array, update its data
+  //     setContacts((prevContacts) => [
+  //       newContact,
+  //       ...prevContacts.slice(0, index),
+  //       ...prevContacts.slice(index + 1),
+  //     ]);
+  //   } else {
+  //     // If the contact doesn't exist in the contacts array, add it to the top
+  //     setContacts((prevContacts) => [newContact, ...prevContacts]);
+  //   }
 
-    // Wait for all the latest message promises to resolve
-    const usersWithLatestMessages = await Promise.all(messagePromises);
+  //   // Sort the contacts based on the latest message's createdAt time in descending order
+  //   const sortedContacts = contacts.sort((a, b) => {
+  //     return (
+  //       new Date(b.latestMessageCreatedAt) - new Date(a.latestMessageCreatedAt)
+  //     );
+  //   });
+  //   setContacts(sortedContacts);
+  // };
 
-    // Sort the users based on the latest message's createdAt time in descending order
-    const sortedUsers = usersWithLatestMessages.sort((a, b) => {
-      return (
-        new Date(b.latestMessageCreatedAt) - new Date(a.latestMessageCreatedAt)
-      );
-    });
-
-    setContacts(sortedUsers);
-  }
-
-  const updateContacts = (newContact) => {
-    // Find the index of the contact in the contacts array
-    const index = contacts.findIndex(
-      (contact) => contact._id === newContact._id
-    );
-
-    if (index !== -1) {
-      // If the contact already exists in the contacts array, update its data
-      setContacts((prevContacts) => [
-        newContact,
-        ...prevContacts.slice(0, index),
-        ...prevContacts.slice(index + 1),
-      ]);
-    } else {
-      // If the contact doesn't exist in the contacts array, add it to the top
-      setContacts((prevContacts) => [newContact, ...prevContacts]);
-    }
-
-    // Sort the contacts based on the latest message's createdAt time in descending order
-    const sortedContacts = contacts.sort((a, b) => {
-      return (
-        new Date(b.latestMessageCreatedAt) - new Date(a.latestMessageCreatedAt)
-      );
-    });
-    setContacts(sortedContacts);
-  };
-
-  async function fetchMessages() {
-    if (currentChat) {
-      const response = await UserInstance.post(
-        "/message/getmsg",
-        {
-          from: currentUser,
-          to: currentChat._id,
-        }
-      );
-      console.log(response.data)
-      setMessages(response.data);
-    }
-  }
-  const updateMessages = (chatId, newMessages) => {
-    const updatedMessages = messages.map(chat => {
-      if (chat._id === chatId) {
-        return {
-          ...chat,
-          messages: newMessages
-        }
-      }
-      return chat
-    })
-    setMessages(updatedMessages)
-    updateContacts(chatId, updatedMessages);
-  }
+  // async function fetchMessages() {
+  //   if (currentChat) {
+  //     const response = await UserInstance.post(
+  //       "/message/getmsg",
+  //       {
+  //         from: currentUser,
+  //         to: currentChat._id,
+  //       }
+  //     );
+  //     console.log(response.data)
+  //     setMessages(response.data);
+  //   }
+  // }
+  // const updateMessages = (chatId, newMessages) => {
+  //   const updatedMessages = messages.map(chat => {
+  //     if (chat._id === chatId) {
+  //       return {
+  //         ...chat,
+  //         messages: newMessages
+  //       }
+  //     }
+  //     return chat
+  //   })
+  //   setMessages(updatedMessages)
+  //   updateContacts(chatId, updatedMessages);
+  // }
 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
-    setMessages([]);
-    fetchMessages();
   };
 
-  const sendMessage = (messageText) => {
-    const message = {
-      sender: currentUser,
-      receiver: currentChat._id,
-      text: messageText,
-    };
-    socket.current.emit("send-message", message);
-    setMessages((prevMessages) => [...prevMessages, message]);
-  };
+  // const sendMessage = (messageText) => {
+  //   const message = {
+  //     sender: currentUser,
+  //     receiver: currentChat._id,
+  //     text: messageText,
+  //   };
+  //   socket.current.emit("send-message", message);
+  //   setMessages((prevMessages) => [...prevMessages, message]);
+  // };
 
   const [theme, colorMode] = useMode();
   return (
@@ -158,24 +168,12 @@ function Chat() {
               <Topbar></Topbar>
               <Container>
                 <div className="container">
-                  <Contacts
-                    contacts={contacts}
-                    changeChat={handleChatChange}
-                    currentUser={currentUser}
-                  />
+                <Contacts contacts={contacts} changeChat={handleChatChange} currentUser={currentUser} />
                   {currentChat === undefined ? (
-                    <Welcome />
-                  ) : (
-                    <ChatContainer
-                      currentChat={currentChat}
-                      socket={socket}
-                      currentUser={currentUser}
-                      // messages={messages}
-                      sendMessage={sendMessage}
-                      updateMessages={updateMessages}
-                      updateContacts={updateContacts} // Add this prop
-                    />
-                  )}
+            <Welcome />
+          ) : (
+            <ChatContainer currentChat={currentChat} currentUser = {currentUser} socket={socket} />
+          )}
                 </div>
               </Container>
             </main>
@@ -187,8 +185,8 @@ function Chat() {
 }
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -196,8 +194,8 @@ const Container = styled.div`
   align-items: center;
   background-color: #131324;
   .container {
-    height: 85vh;
-    width: 85vw;
+    height: 90%;
+    width: 90%;
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
@@ -206,5 +204,6 @@ const Container = styled.div`
     }
   }
 `;
+
 
 export default Chat;

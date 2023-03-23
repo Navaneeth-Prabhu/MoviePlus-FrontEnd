@@ -225,7 +225,7 @@ function EditMovieModel({ editModel, movie, seteditModel, handleSave }) {
                   {url && (
                     <>
                       <p>
-                        <img className="w-20 h-full mt-4" src={url} alt="Uploaded image" />
+                        <img className="w-20 h-20 mt-4" src={url} alt="Uploaded image" />
                       </p>
                       <p>{url}</p>
                     </>

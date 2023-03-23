@@ -1,8 +1,5 @@
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,22 +7,19 @@ import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import InputLabel from "@mui/material/InputLabel";
 import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
-import DatePicker, { DateObject } from "react-multi-date-picker";
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import { DateObject } from "react-multi-date-picker";
 import dayjs from "dayjs";
 import Stack from "@mui/material/Stack";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { TheaterInstance } from "../../../../axios/axios";
 
 function AddShows() {
@@ -93,7 +87,7 @@ function AddShows() {
       setscreen(data);
     })
     .catch((error) => {
-      console.log(error,".......................");    
+      // console.log(error,".......................");    
     });
   }
 
@@ -104,14 +98,14 @@ function AddShows() {
       setData(data);
     })
     .catch((error) => {
-      console.log(error,"........asdfasdf..........")
+      // console.log(error,"........asdfasdf..........")
     });
   }
   
 
   useEffect(() => {
     async function getShowMovie() {
-      console.log("dddafffffffffffffffffffffff............",id)
+      // console.log("dddafffffffffffffffffffffff............",id)
       getMovies()
       getScreen()
 
@@ -154,13 +148,13 @@ function AddShows() {
       <Container component="main" maxWidth="xm" color="secondary">
         {/* <CssBaseline /> */}
         <h2>Currunt Shows</h2>
-        <div className="w-full flex flex-wrap my-6">
+        <div className="w-full flex flex-wrap my-6 " >
           {Show?.reverse().map((shows, screenIndex) => (
-            <div key={screenIndex} className="flex">
+            <div key={screenIndex} className="flex  space-x-3 ">
               {shows?.showInfo?.map((item, index) => (
-                <div className="flex flex-col items-center w-[11rem] h-80">
-                  <p className="text-white">{item?.screen}</p>
-                  <p className="text-white">{item?.movieName?.title}</p>
+                <div className="flex flex-col items-center w-[11rem] h-80 ">
+                  <p className="text-white underline decoration-1 underline-offset-4">{item?.screen}</p>
+                  <p className="text-white text-center truncate w-full text-md p-4">{item?.movieName?.title}</p>
                   <div className="flex space-x-2">
                     {item?.time?.map((time) => (
                       <p className="text-white">{time}</p>

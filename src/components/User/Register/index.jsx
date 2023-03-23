@@ -214,7 +214,7 @@ function Modals() {
               resent
             </button>
           ) : (
-            <p>{count} seconds left to resend</p>
+            <p>{count} seconds left</p>
           )}
 
           <div>{/* <button onClick={handleReset}>Reset</button> */}</div>

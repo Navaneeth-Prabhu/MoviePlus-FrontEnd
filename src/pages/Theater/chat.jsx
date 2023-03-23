@@ -7,18 +7,15 @@ import SideBar from "../../components/Theater/Global/Sidebar";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import styled from "styled-components";
 import { TheaterInstance } from "../../axios/axios";
-import { useNavigate } from "react-router-dom";
 import Contacts from "../../components/Theater/Chat/Contacts/contacts";
 import Welcome from "../../components/Theater/Chat/welcome";
 import ChatContainer from "../../components/Theater/Chat/Container/chatContainer";
 import jwt_decode from "jwt-decode";
-import { useCookies } from "react-cookie";
 import {io} from 'socket.io-client'
 
 function Chat() {
   const host = "http://localhost:3001"
-  const navigate = useNavigate();
-  const [cookies] = useCookies([]);
+  // const host = "www.movieplus.online"
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);

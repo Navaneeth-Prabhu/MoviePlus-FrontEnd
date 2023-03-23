@@ -22,7 +22,7 @@ function Contacts({contacts,currentUser,changeChat}) {
     <Container>
           <div className="brand">
             {/* <img src={Logo} alt="logo" /> */}
-            <h3>snappy</h3>
+            <h3>Chat Support</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {

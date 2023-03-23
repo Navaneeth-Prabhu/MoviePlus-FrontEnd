@@ -1,25 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "../ChatInput/chatInput";
-// import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
-// import axios from "axios";
-import axios, { AdminInstance } from '../../../../axios/axios'
-import jwt_decode from "jwt-decode";
-import { useCookies } from "react-cookie";
-// import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import  { UserInstance } from '../../../../axios/axios'
+import { format } from "timeago.js";
 
 export default function ChatContainer({ currentChat, socket, currentUser }) {
-  // const [messages, setMessages] = useState([]);
   const [messages, setmessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const [cookies] = useCookies([]);
-
 
   useEffect(() => {
     async function getmessage() {
-      const response = await AdminInstance.post(
+      const response = await UserInstance.post(
         "/message/getmsg",
         {
           from: currentUser,
@@ -33,7 +26,7 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
 
 
   const handleSendMsg = async (msg) => {
-    await AdminInstance.post("/message/addmsg", {
+    await UserInstance.post("/message/addmsg", {
       from: currentUser,
       to: currentChat._id,
       message: msg,
@@ -72,17 +65,13 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
       <div className="chat-header">
         <div className="user-details">
           <div className="avatar">
-            {/* <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-              alt=""
-            /> */}
+         
           </div>
           <div className="username">
             <h3>{currentChat.theater}</h3>
           </div>
         </div>
-        {/* <Logout /> */}
-      </div>
+        </div>
       <div className="chat-messages">
         {messages.map((message) => {
           return (
@@ -92,6 +81,7 @@ export default function ChatContainer({ currentChat, socket, currentUser }) {
             >
               <div className="contentt ">
                 <p>{message.message}</p>
+                <div className="text-[10px] static right-1 bottom-1">{format(message.send)}</div>
               </div>
             </div>
             </div>
@@ -154,7 +144,7 @@ const Container = styled.div`
         overflow-wrap: break-word;
         padding: 1rem;
         font-size: 1.1rem;
-        border-radius: 1rem;
+        border-radius: .4rem;
         color: #d1d1d1;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
@@ -162,6 +152,7 @@ const Container = styled.div`
       }
     }
     .sended {
+    
       justify-content: flex-end;
       .contentt {
         background-color: #4f04ff21;
@@ -175,3 +166,4 @@ const Container = styled.div`
     }
   }
 `;
+
