@@ -92,7 +92,8 @@ function Navbar() {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        backgroundColor:"#121212"
+        backgroundColor:"#121212",
+        color:"white"
       }}
     >
       <List>{}</List>

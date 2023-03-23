@@ -41,38 +41,45 @@ const style = {
 
 export default function FormMovie() {
   const navigate = useNavigate()
-  const [screen, setscreen] = React.useState([]);
+  const [screen, setScreen] = React.useState([]);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const token = localStorage.getItem('theater');
   const decoded = jwt_decode(token);
   const id = decoded.id;
 
-  const getScreen = async()=>{
+  const getScreen = async () => {
     try {
       const { data } = await TheaterInstance.get(`/getScreen/${id}`);
-      const screenNames = data?.map((name) => name.screenName);
-      setscreen(screenNames)
-      // do something with the screenNames array
+      setScreen(data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (name === '') {
+    const screenNames = screen.map((name) => name.screenName.toLowerCase());
+    const lowerCaseName = name.toLowerCase();
+  
+    if (lowerCaseName === '') {
       setError('Please enter a name.');
-    } else if (screen.includes(name)) {
+    } else if (screenNames.includes(lowerCaseName)) {
       setError(`${name} already exists.`);
     } else {
-      // do something with the name, like add it to an array
-      setError('');
-      setName('');
-      navigate('/theater')
+      try {
+        const { data } = await TheaterInstance.post('/addScreen', { name });
+        console.log(data);
+        setScreen((prevScreen) => [...prevScreen, data]);
+        setError('');
+        setName('');
+        navigate('/theater');
+      } catch (error) {
+        console.log(error);
+        setError('An error occurred while adding the screen.');
+      }
     }
-  }
-  
+  };
 
   useEffect(() => {
     getScreen()

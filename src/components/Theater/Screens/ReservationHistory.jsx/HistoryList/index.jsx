@@ -128,8 +128,8 @@ export default function TheaterList() {
             <TableCell align="left">Reserve-Date</TableCell>
             <TableCell align="left">Show Time</TableCell>
             <TableCell align="left">No:Seats</TableCell>
+            <TableCell align="left">SeatId</TableCell>
             <TableCell align="left">Total</TableCell>
-            <TableCell align="left">Email</TableCell>
             {/* <TableCell align="left">Status</TableCell> */}
             
            
@@ -163,9 +163,6 @@ export default function TheaterList() {
                   <TableCell component="th" scope="row">
                     {data.seats.length}
                   </TableCell>
-                  <TableCell component="th" scope="row">
-                    {data.total}
-                  </TableCell>
                   <TableCell  component="th" scope="row">
                     <div className="flex flex-row">
                     {
@@ -176,6 +173,9 @@ export default function TheaterList() {
                       ))
                     }
                     </div>
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {data.total}
                   </TableCell>
                 </TableRow>
               ))}
