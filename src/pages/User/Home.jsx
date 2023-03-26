@@ -20,7 +20,7 @@ function Home() {
         <div className="max-w-[1240px] m-auto">
           <Slide />
           <Slide />
-          <Slide />
+          
         </div>
       </div>
 

@@ -37,7 +37,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Modals() {
   const dispatch = useDispatch();
-  const [count, setCount] = useState(10);
+  const [count, setCount] = useState(60);
   const [showResend, setShowResend] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState(false);
