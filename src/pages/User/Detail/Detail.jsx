@@ -60,7 +60,7 @@ const Detail = () => {
               alt=""
             />
           </div>
-          <div className="absolute top-[50%] left-[30%] bg-white/60 px-3 py-1 rounded-full">
+          <div className="absolute top-[50%] left-[30%] bg-white/60 px-3 py-1 rounded-full cursor-pointer" onClick={() => navigate("/movie/trailler")}>
             <PlayCircleFilledWhiteIcon />
             <span>Trailer</span>
           </div>
@@ -128,7 +128,7 @@ const Detail = () => {
         {/* <div className="lines mb-4"></div> */}
         <div className="details text-white mt-5 max-w-4xl">
           <h2 className="text-2xl font-bold">About the Movie</h2>
-          <p>hallooo{movieInformation?.movie.description}</p>
+          <p>{movieInformation?.movie.description}</p>
         </div>
         <div className="lines mb-4"></div>
         <div className="details text-white">

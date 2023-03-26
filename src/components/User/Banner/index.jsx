@@ -1,94 +1,106 @@
-import React from "react";
-import "./banner.css";
-import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Navigation } from "swiper";
+
+import React, { useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "./banner2.css";
+
+// import required modules
+import { Pagination } from "swiper";
 
 function Index() {
   return (
-
     <>
-     <div className="max-h-[500px] bg-yellow-400">
-
+      <div className="max-w-[1200px] m-auto">
         <Swiper
-          centeredSlides={true}
-          slidesPerView={1.5}
-          spaceBetween={5}
+          
           loop={true}
-          navigation={true}
-           modules={[Navigation]}
-          className="w-full h-ful bg-black max-h-[400px]"
+          centeredSlides={true}
+        
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            1024: {
+           
+              slidesPerView: 1.5,
+              spaceBetween: 10,
+            },
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
         >
-          <SwiperSlide>
-            {/* <div className="containerr"> */}
-              
-                {/* <div className="fade"> */}
-                <div className="topGradient h-full w-full">
-                  {/* <div className="gradientwhole"> */}
-                  <img
-                    className="h-fit w-fit"
-                    style={{ width: "100%", height: "100%" }}
-                    src={require("../../../images/l34820221122130003.webp")}
-                    alt="First slide"
-                  />
-                </div>
-              
-            {/* </div> */}
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="containerr">
-              <div className="">
-                <div className="topGradient">
-                  {/* <div className="gradientwhole"> */}
-                  <div className="left">
-                    <img
-                      className="left"
-                      style={{ width: "100%", height: "100%" }}
-                      src={require("../../../images/5c1cff971789a-wallpaper-preview.jpg")}
-                      alt="First slide"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="containerr">
-              <div className="">
-                {/* <div className="fade"> */}
-                <div className="topGradient">
-                  {/* <div className="gradientwhole"> */}
-                  <img
-                    className=""
-                    style={{ width: "100%", height: "100%" }}
-                    src={require("../../../images/l34820221122130003.webp")}
-                    alt="First slide"
-                  />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="containerr">
-              <div className="">
-                <div className="topGradient">
-                  {/* <div className="gradientwhole"> */}
-                  <div className="left">
-                    <img
-                      className="left"
-                      style={{ width: "100%", height: "100%" }}
-                      src={require("../../../images/5c1cff971789a-wallpaper-preview.jpg")}
-                      alt="First slide"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-     </div>
-      </>
+      
 
+          <SwiperSlide>
+          <div className="topGradient">
+
+            <img
+              className="bg-cover"
+              style={{ width: "100%", height: "100%" }}
+              src="https://www.sho.com/site/image-bin/images/0_0_3493875/0_0_3493875_00h_1280x640.jpg"
+              alt="First slide"
+            />
+          </div>
+          </SwiperSlide>
+     
+          <SwiperSlide>
+          <div className="topGradient">
+
+            {" "}
+            <img
+              className="bg-cover"
+              style={{ width: "100%", height: "100%" }}
+              src="https://www.nicepng.com/png/full/106-1060641_make-action-gifs-john-wick-chapter-2-blu.png"
+              alt="First slide"
+            />
+          </div>
+          </SwiperSlide>
+          <SwiperSlide>
+          <div className="topGradient">
+            {" "}
+            <img
+              className="bg-cover"
+              style={{ width: "100%", height: "100%" }}
+              src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2022/03/everything-everywhere-all-at-once-cover.jpg"
+              alt="First slide"
+            />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+          <div className="topGradient">
+            {" "}
+            <img
+              className="bg-cover"
+              style={{ width: "100%", height: "100%" }}
+              src="https://northcoastcourier.co.za/wp-content/uploads/sites/73/2021/11/Dune-Movie.jpg"
+              alt="First slide"
+            />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+          <div className="topGradient">
+            {" "}
+            <img
+              className="bg-cover"
+              style={{ width: "100%", height: "100%" }}
+              src="https://static1.srcdn.com/wordpress/wp-content/uploads/2020/04/1400x700-14-1.jpg"
+              alt="First slide"
+            />
+            </div>
+          </SwiperSlide>
+         
+         
+        </Swiper>
+      </div>
+    </>
   );
 }
 

@@ -35,7 +35,7 @@ export default function Slider() {
         <div className="flex w-full content-center">
           <h2 className="text-2xl m-0 ml-4"> Book now </h2>
           <div className="titleline flex-1 w-full m-0 ml-2"></div>
-          <div className="showmore" onClick={()=>{
+          <div className="showmore z-20 cursor-pointer" onClick={()=>{
             navigate('/SeeAll')
           }}><p>show all</p></div>
         </div>

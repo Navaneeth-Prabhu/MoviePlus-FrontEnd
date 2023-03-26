@@ -46,6 +46,7 @@ body {
 
   
   .cardContent .title{
+    justify-content: left;
     color: white;
     font-size: 18px;
     margin-bottom: 1rem;
@@ -131,7 +132,7 @@ body {
     font-family: Roboto, sans-serif;
     transition: .3s;
     cursor: pointer;
-    height: 350px;
+    height: 320px;
    
   }
 
