@@ -21,7 +21,7 @@ const TheaterInstance = axios.create({
 
 const AdminInstance = axios.create({
 	// Configuration
-	baseURL: `${process.env.REACT_APP_STAGE == "dev" ? "http://localhost:3001/admin" : "https://movieplus.online/admin"}`,
+	baseURL: `${process.env.REACT_APP_STAGE == "dev" ? "http://localhost:3001/admin" : "https://movieplus/admin"}`,
 	withCredentials:true,
 	headers: {
     'Authorization': `Bearer ${localStorage.getItem('admin')}`
