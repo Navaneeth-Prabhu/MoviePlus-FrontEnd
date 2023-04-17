@@ -16,8 +16,8 @@ import { useCookies } from "react-cookie";
 import { io } from "socket.io-client";
 
 function Chat() {
-  const host = "http://localhost:3001";
-  // const host = "www.movieplus.online";
+  // const host = "http://localhost:3001";
+  const host = "www.movieplus.online";
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
